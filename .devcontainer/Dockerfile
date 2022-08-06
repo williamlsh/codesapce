@@ -13,4 +13,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     build-essential \
     htop \
     curl \
-    screenfetch
+    screenfetch \
+    cmake \
+    clang \
+    git \
+    libssl-dev \
+    libz-dev
