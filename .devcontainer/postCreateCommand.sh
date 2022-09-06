@@ -87,12 +87,12 @@ source ~/.cargo/env
 
 # Set up mold
 echo "Set up mold"
-git clone https://github.com/rui314/mold.git mold >/dev/null 2>&1
-cd mold
+git clone https://github.com/rui314/mold.git >/dev/null 2>&1
+pushd mold
 git checkout v1.4.2
 make -j$(nproc) CXX=clang++
 sudo make install
-cd .. && rm -rf mold
+popd && rm -rf mold
 cat <<EOF >~/.cargo/config.toml
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
@@ -102,6 +102,5 @@ EOF
 # Install just
 echo "Install just"
 cargo install -q just
-readelf -p .comment $(which just)
 
 zsh -c "source ~/.zshrc"
