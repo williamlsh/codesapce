@@ -17,5 +17,4 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     cmake \
     clang \
     git \
-    libssl-dev \
-    libz-dev
+    libssl-dev

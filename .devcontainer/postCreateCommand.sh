@@ -3,6 +3,8 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
+MOLD_VERSION="v1.5.0"
+GO_VERSION="1.19.1"
 
 # Set up default editor
 echo "Set up default editor"
@@ -88,10 +90,13 @@ source ~/.cargo/env
 # Set up mold
 echo "Set up mold"
 git clone https://github.com/rui314/mold.git >/dev/null 2>&1
-pushd mold
-git checkout v1.4.2
-make -j$(nproc) CXX=clang++
-sudo make install
+mkdir mold/build
+pushd mold/build
+git checkout ${MOLD_VERSION}
+sudo ../install-build-deps.sh
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ ..
+cmake --build . -j $(nproc)
+sudo cmake --install .
 popd && rm -rf mold
 cat <<EOF >~/.cargo/config.toml
 [target.x86_64-unknown-linux-gnu]
@@ -102,5 +107,11 @@ EOF
 # Install just
 echo "Install just"
 cargo install -q just
+
+# Set up Go
+curl -LO "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
+sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
+echo PATH=$PATH:/usr/local/go/bin:$HOME/go/bin >> $HOME/.zshrc
+rm "go${GO_VERSION}.linux-amd64.tar.gz"
 
 zsh -c "source ~/.zshrc"
