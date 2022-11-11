@@ -3,8 +3,8 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="v1.5.1"
-GO_VERSION="1.19.2"
+MOLD_VERSION="v1.6.0"
+GO_VERSION="1.19.3"
 
 # Set up default editor
 echo "Set up default editor"
