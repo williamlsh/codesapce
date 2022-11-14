@@ -3,7 +3,7 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="v1.6.0"
+MOLD_VERSION="v1.7.0"
 GO_VERSION="1.19.3"
 
 # Set up default editor
@@ -68,7 +68,7 @@ EOF
 
 # Set up docker
 echo "Set up docker"
-sudo apt-get update
+sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install \
   ca-certificates \
   curl \
@@ -106,7 +106,7 @@ EOF
 
 # Install just
 echo "Install just"
-cargo install -q just
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
 
 # Set up Go
 curl -LO "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
