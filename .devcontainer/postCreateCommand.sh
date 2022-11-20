@@ -3,7 +3,7 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="v1.7.0"
+MOLD_VERSION="v1.7.1"
 GO_VERSION="1.19.3"
 
 # Set up default editor
