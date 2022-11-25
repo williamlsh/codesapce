@@ -1,4 +1,3 @@
-# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.241.1/containers/debian/.devcontainer/base.Dockerfile
 
 # [Choice] Debian version (use bullseye on local arm64/Apple Silicon): bullseye, buster
 ARG VARIANT="buster"
@@ -10,11 +9,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     vim \
     zsh \
     tmux \
-    build-essential \
     htop \
     curl \
     screenfetch \
-    cmake \
     clang \
-    git \
-    libssl-dev
+    git

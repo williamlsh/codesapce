@@ -3,7 +3,7 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="v1.7.1"
+MOLD_VERSION="1.7.1"
 GO_VERSION="1.19.3"
 
 # Set up default editor
@@ -89,19 +89,14 @@ source ~/.cargo/env
 
 # Set up mold
 echo "Set up mold"
-git clone https://github.com/rui314/mold.git >/dev/null 2>&1
-mkdir mold/build
-pushd mold/build
-git checkout ${MOLD_VERSION}
-sudo ../install-build-deps.sh
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ ..
-cmake --build . -j $(nproc)
-sudo cmake --install .
-popd && rm -rf mold
+curl -LO "https://github.com/rui314/mold/releases/download/v${MOLD_VERSION}/mold-${MOLD_VERSION}-x86_64-linux.tar.gz"
+tar -xzf "mold-${MOLD_VERSION}-x86_64-linux.tar.gz"
+sudo mv "mold-${MOLD_VERSION}-x86_64-linux" /usr/local/mold
+rm -rf "mold-${MOLD_VERSION}-x86_64-linux.tar.gz"
 cat <<EOF >~/.cargo/config.toml
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
-rustflags = ["-C", "link-arg=-fuse-ld=$(which mold)"]
+rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/mold/bin/mold"]
 EOF
 
 # Install just
@@ -111,7 +106,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash
 # Set up Go
 curl -LO "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
 sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
-echo PATH=$PATH:/usr/local/go/bin:$HOME/go/bin >> $HOME/.zshrc
 rm "go${GO_VERSION}.linux-amd64.tar.gz"
 
+# Setup path environment variable
+echo PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:/usr/local/mold/bin >>~/.zshrc
 zsh -c "source ~/.zshrc"
