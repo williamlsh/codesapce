@@ -4,7 +4,7 @@ set -e
 
 EMAIL="williamlsh@protonmail.com"
 MOLD_VERSION="1.7.1"
-GO_VERSION="1.19.3"
+GO_VERSION="1.19.4"
 
 # Set up default editor
 echo "Set up default editor"
