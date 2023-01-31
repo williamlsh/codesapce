@@ -9,8 +9,5 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     vim \
     zsh \
     tmux \
-    htop \
-    curl \
     screenfetch \
-    clang \
-    git
+    clang
