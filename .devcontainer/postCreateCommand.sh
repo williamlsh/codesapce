@@ -44,7 +44,7 @@ sed -i 's/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-completions zsh
 # Set up powerlevel10k
 echo "Set up powerlevel10k"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k >/dev/null 2>&1
-sed -i 's/_THEME=\"codespaces\"/_THEME=\"powerlevel10k\/powerlevel10k\"/g' ~/.zshrc
+sed -i 's/_THEME=\"devcontainers\"/_THEME=\"powerlevel10k\/powerlevel10k\"/g' ~/.zshrc
 
 # Set up tmux
 echo "Set up tmux"
