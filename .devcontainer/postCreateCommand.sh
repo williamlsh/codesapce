@@ -6,6 +6,8 @@ EMAIL="williamlsh@protonmail.com"
 MOLD_VERSION="1.10.1"
 GO_VERSION="1.19.5"
 
+sudo apt-get update && sudo apt-get upgrade -y
+
 # Set up default editor
 echo "Set up default editor"
 sudo update-alternatives --set editor /usr/bin/vim.basic
@@ -28,6 +30,7 @@ ssh-add ~/.ssh/id_ed25519
 
 # Set up spacevim
 echo "Set up spacevim"
+sudo apt-get install xfonts-utils -y
 curl -sLf https://spacevim.org/install.sh | bash >/dev/null 2>&1
 
 # Set up oh-my-zsh plugins
@@ -68,7 +71,6 @@ EOF
 
 # Set up docker
 echo "Set up docker"
-sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install \
   ca-certificates \
   curl \
