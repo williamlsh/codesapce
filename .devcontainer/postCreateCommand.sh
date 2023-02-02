@@ -111,5 +111,5 @@ sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
 rm "go${GO_VERSION}.linux-amd64.tar.gz"
 
 # Setup path environment variable
-echo PATH=$PATH:/usr/local/go/bin:$HOME/go/bin:/usr/local/mold/bin >>~/.zshrc
+echo PATH=\$PATH:/usr/local/go/bin:$HOME/go/bin:/usr/local/mold/bin >>~/.zshrc
 zsh -c "source ~/.zshrc"
