@@ -3,7 +3,7 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="1.10.1"
+MOLD_VERSION="1.11.0"
 GO_VERSION="1.20.2"
 
 sudo apt-get update && sudo apt-get upgrade -y
