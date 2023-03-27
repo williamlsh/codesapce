@@ -4,7 +4,6 @@ set -e
 
 EMAIL="williamlsh@protonmail.com"
 MOLD_VERSION="1.11.0"
-GO_VERSION="1.20.2"
 
 sudo apt-get update && sudo apt-get upgrade -y
 
@@ -105,11 +104,6 @@ EOF
 echo "Install just"
 curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
 
-# Set up Go
-curl -LO "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
-sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
-rm "go${GO_VERSION}.linux-amd64.tar.gz"
-
 # Setup path environment variable
-echo PATH=\$PATH:/usr/local/go/bin:$HOME/go/bin:/usr/local/mold/bin >>~/.zshrc
+echo PATH=\$PATH:/usr/local/mold/bin >>~/.zshrc
 zsh -c "source ~/.zshrc"
