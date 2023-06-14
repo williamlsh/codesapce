@@ -4,12 +4,9 @@ set -e
 
 EMAIL="williamlsh@protonmail.com"
 MOLD_VERSION="1.11.0"
+HELIX_VERSION="23.05"
 
 sudo apt-get update && sudo apt-get upgrade -y
-
-# Set up default editor
-echo "Set up default editor"
-sudo update-alternatives --set editor /usr/bin/vim.basic
 
 # Set up zsh
 echo "Set up zsh"
@@ -26,11 +23,6 @@ echo "Set up ssh keys"
 ssh-keygen -q -t ed25519 -C $EMAIL -N '' <<<$'\ny' >/dev/null 2>&1
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
-
-# Set up spacevim
-echo "Set up spacevim"
-sudo apt-get install xfonts-utils -y
-curl -sLf https://spacevim.org/install.sh | bash >/dev/null 2>&1
 
 # Set up oh-my-zsh plugins
 echo "Set up oh-my-zsh plugins"
@@ -103,6 +95,16 @@ EOF
 # Install just
 echo "Install just"
 curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
+
+# Install Helix editor
+echo "Install Helix editor"
+curl -sL "https://github.com/helix-editor/helix/releases/download/${HELIX_VERSION}/helix-${HELIX_VERSION}-x86_64-linux.tar.xz" | tar -xJ
+pushd "helix-${HELIX_VERSION}-x86_64-linux"
+sudo mv hx /usr/local/bin/
+mkdir -p $HOME/.config/helix && mv runtime $HOME/.config/helix
+popd
+rm -rf "helix-${HELIX_VERSION}-x86_64-linux"
+echo "HELIX_RUNTIME=$HOME/.config/helix/runtime" >>~/.zshrc
 
 # Setup path environment variable
 echo PATH=\$PATH:/usr/local/mold/bin >>~/.zshrc
