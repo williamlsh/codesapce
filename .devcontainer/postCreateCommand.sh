@@ -17,6 +17,7 @@ echo "Set up git"
 git config --global user.name "William"
 git config --global user.email $EMAIL
 git config --global init.defaultBranch master
+git config --global core.editor hx
 
 # Set up ssh keys
 echo "Set up ssh keys"
