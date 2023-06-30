@@ -9,23 +9,23 @@ HELIX_VERSION="23.05"
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Set up zsh
-echo "Set up zsh"
+echo "Set up zsh\n"
 sudo chsh -s $(which zsh) $(whoami)
 
 # Set up git
-echo "Set up git"
+echo "Set up git\n"
 git config --global user.name "William"
 git config --global user.email $EMAIL
 git config --global init.defaultBranch master
 
 # Set up ssh keys
-echo "Set up ssh keys"
+echo "Set up ssh keys\n"
 ssh-keygen -q -t ed25519 -C $EMAIL -N '' <<<$'\ny' >/dev/null 2>&1
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
 # Set up oh-my-zsh plugins
-echo "Set up oh-my-zsh plugins"
+echo "Set up oh-my-zsh plugins\n"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting >/dev/null 2>&1
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions >/dev/null 2>&1
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions >/dev/null 2>&1
@@ -33,12 +33,12 @@ git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM
 sed -i 's/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-completions zsh-autosuggestions zsh-history-substring-search)/g' ~/.zshrc
 
 # Set up powerlevel10k
-echo "Set up powerlevel10k"
+echo "Set up powerlevel10k\n"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k >/dev/null 2>&1
 sed -i 's/_THEME=\"devcontainers\"/_THEME=\"powerlevel10k\/powerlevel10k\"/g' ~/.zshrc
 
 # Set up tmux
-echo "Set up tmux"
+echo "Set up tmux\n"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm >/dev/null 2>&1
 cat <<'EOF' >~/.tmux.conf
 set -g default-terminal "screen-256color"
@@ -61,12 +61,12 @@ run '~/.tmux/plugins/tpm/tpm'
 EOF
 
 # Set up rust
-echo "Set up rust"
+echo "Set up rust\n"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source ~/.cargo/env
 
 # Set up mold
-echo "Set up mold"
+echo "Set up mold\n"
 curl -LO "https://github.com/rui314/mold/releases/download/v${MOLD_VERSION}/mold-${MOLD_VERSION}-x86_64-linux.tar.gz"
 tar -xzf "mold-${MOLD_VERSION}-x86_64-linux.tar.gz"
 sudo mv "mold-${MOLD_VERSION}-x86_64-linux" /usr/local/mold
@@ -78,18 +78,15 @@ rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/mold/bin/mold"]
 EOF
 
 # Install just
-echo "Install just"
+echo "Install just\n"
 curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
 
 # Install Helix editor
-echo "Install Helix editor"
-curl -sL "https://github.com/helix-editor/helix/releases/download/${HELIX_VERSION}/helix-${HELIX_VERSION}-x86_64-linux.tar.xz" | tar -xJ
-pushd "helix-${HELIX_VERSION}-x86_64-linux"
-sudo mv hx /usr/local/bin/
-mkdir -p $HOME/.config/helix && mv runtime $HOME/.config/helix
-popd
-rm -rf "helix-${HELIX_VERSION}-x86_64-linux"
-echo "HELIX_RUNTIME=$HOME/.config/helix/runtime" >>~/.zshrc
+echo "Install Helix editor\n"
+sudo apt install software-properties-common -y
+sudo add-apt-repository -y ppa:maveonair/helix-editor
+sudo apt update
+sudo apt install helix -y
 
 # Setup path environment variable
 echo PATH=\$PATH:/usr/local/mold/bin >>~/.zshrc
