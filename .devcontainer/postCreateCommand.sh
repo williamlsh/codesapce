@@ -78,18 +78,33 @@ rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/mold/bin/mold"]
 EOF
 
 # Install just
-echo "Install just"
+echo "Install just\n"
 curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
 
 # Install Helix editor
-echo "Install Helix editor"
+echo "Install Helix editor\n"
 curl -sL "https://github.com/helix-editor/helix/releases/download/${HELIX_VERSION}/helix-${HELIX_VERSION}-x86_64-linux.tar.xz" | tar -xJ
 pushd "helix-${HELIX_VERSION}-x86_64-linux"
 sudo mv hx /usr/local/bin/
 mkdir -p $HOME/.config/helix && mv runtime $HOME/.config/helix
 popd
 rm -rf "helix-${HELIX_VERSION}-x86_64-linux"
-echo "HELIX_RUNTIME=$HOME/.config/helix/runtime" >>~/.zshrc
+cat <<EOF >~/.config/helix/config.toml
+theme = "onedark"
+
+[editor]
+line-number = "relative"
+mouse = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+EOF
+rustup component add rust-analyzer
 
 # Setup path environment variable
 echo PATH=\$PATH:/usr/local/mold/bin >>~/.zshrc
