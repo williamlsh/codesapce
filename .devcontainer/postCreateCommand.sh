@@ -3,7 +3,7 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="1.11.0"
+MOLD_VERSION="2.1.0"
 HELIX_VERSION="23.05"
 
 sudo apt-get update && sudo apt-get upgrade -y
