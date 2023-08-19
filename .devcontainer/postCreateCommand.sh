@@ -96,7 +96,7 @@ theme = "onedark"
 [editor]
 line-number = "relative"
 mouse = false
-auto-save = treu
+auto-save = true
 
 [editor.cursor-shape]
 insert = "bar"
