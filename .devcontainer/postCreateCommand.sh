@@ -3,7 +3,7 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="1.11.0"
+MOLD_VERSION="2.1.0"
 HELIX_VERSION="23.05"
 
 sudo apt-get update && sudo apt-get upgrade -y
@@ -68,10 +68,8 @@ source ~/.cargo/env
 
 # Set up mold
 echo "Set up mold"
-curl -LO "https://github.com/rui314/mold/releases/download/v${MOLD_VERSION}/mold-${MOLD_VERSION}-x86_64-linux.tar.gz"
-tar -xzf "mold-${MOLD_VERSION}-x86_64-linux.tar.gz"
+curl -s "https://github.com/rui314/mold/releases/download/v${MOLD_VERSION}/mold-${MOLD_VERSION}-x86_64-linux.tar.gz" | tar -xvz
 sudo mv "mold-${MOLD_VERSION}-x86_64-linux" /usr/local/mold
-rm -rf "mold-${MOLD_VERSION}-x86_64-linux.tar.gz"
 cat <<EOF >~/.cargo/config.toml
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
