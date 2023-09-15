@@ -68,7 +68,7 @@ source ~/.cargo/env
 
 # Set up mold
 echo "Set up mold"
-curl -s "https://github.com/rui314/mold/releases/download/v${MOLD_VERSION}/mold-${MOLD_VERSION}-x86_64-linux.tar.gz" | tar -xvz
+curl -sL "https://github.com/rui314/mold/releases/download/v${MOLD_VERSION}/mold-${MOLD_VERSION}-x86_64-linux.tar.gz" | tar -xvz
 sudo mv "mold-${MOLD_VERSION}-x86_64-linux" /usr/local/mold
 cat <<EOF >~/.cargo/config.toml
 [target.x86_64-unknown-linux-gnu]
