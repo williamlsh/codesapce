@@ -3,8 +3,9 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="2.2.0"
-HELIX_VERSION="23.05"
+MOLD_VERSION="2.3.2"
+HELIX_VERSION="23.10"
+GO_VERSION="1.21.4"
 
 sudo apt-get update && sudo apt-get upgrade -y
 
@@ -106,6 +107,11 @@ hidden = false
 EOF
 rustup component add rust-analyzer
 
+# Set up Go
+curl -LO "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
+sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
+rm "go${GO_VERSION}.linux-amd64.tar.gz"
+
 # Setup path environment variable
-echo PATH=\$PATH:/usr/local/mold/bin >>~/.zshrc
+echo PATH=\$PATH:/usr/local/mold/bin:/usr/local/go/bin:$HOME/go/bin >>~/.zshrc
 zsh -c "source ~/.zshrc"
