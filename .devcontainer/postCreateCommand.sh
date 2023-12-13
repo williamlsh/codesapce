@@ -3,9 +3,7 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-MOLD_VERSION="2.3.2"
 HELIX_VERSION="23.10"
-GO_VERSION="1.21.4"
 
 sudo apt-get update && sudo apt-get upgrade -y
 
@@ -62,25 +60,6 @@ set -g @continuum-restore 'on'
 run '~/.tmux/plugins/tpm/tpm'
 EOF
 
-# Set up rust
-echo "Set up rust"
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source ~/.cargo/env
-
-# Set up mold
-echo "Set up mold"
-curl -sL "https://github.com/rui314/mold/releases/download/v${MOLD_VERSION}/mold-${MOLD_VERSION}-x86_64-linux.tar.gz" | tar -xvz
-sudo mv "mold-${MOLD_VERSION}-x86_64-linux" /usr/local/mold
-cat <<EOF >~/.cargo/config.toml
-[target.x86_64-unknown-linux-gnu]
-linker = "clang"
-rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/mold/bin/mold"]
-EOF
-
-# Install just
-echo "Install just\n"
-curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
-
 # Install Helix editor
 echo "Install Helix editor\n"
 curl -sL "https://github.com/helix-editor/helix/releases/download/${HELIX_VERSION}/helix-${HELIX_VERSION}-x86_64-linux.tar.xz" | tar -xJ
@@ -105,13 +84,5 @@ select = "underline"
 [editor.file-picker]
 hidden = false
 EOF
-rustup component add rust-analyzer
 
-# Set up Go
-curl -LO "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
-sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
-rm "go${GO_VERSION}.linux-amd64.tar.gz"
-
-# Setup path environment variable
-echo PATH=\$PATH:/usr/local/mold/bin:/usr/local/go/bin:$HOME/go/bin >>~/.zshrc
 zsh -c "source ~/.zshrc"
