@@ -9,4 +9,5 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     zsh \
     tmux \
     screenfetch \
-    clang
+    clang \
+    pkg-config
