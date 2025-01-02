@@ -3,7 +3,7 @@
 set -e
 
 EMAIL="williamlsh@protonmail.com"
-HELIX_VERSION="23.10"
+HELIX_VERSION="24.07"
 
 sudo apt-get update && sudo apt-get upgrade -y
 
